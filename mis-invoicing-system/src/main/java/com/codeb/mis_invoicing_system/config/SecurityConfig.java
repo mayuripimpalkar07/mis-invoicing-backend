@@ -28,7 +28,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Naya: explicit CORS config, direct Security ke andar
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -49,6 +48,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/employees/**").hasRole("ADMIN")
                         .requestMatchers("/api/attendance/**").hasRole("ADMIN")
                         .requestMatchers("/api/leaves/**").hasRole("ADMIN")
